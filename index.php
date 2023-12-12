@@ -8,6 +8,7 @@
 <body>
     <ul>
         <li><a href="00_command_execution/">00 - Command Execution</a></li>
+        <li><a href="01_xss/">01 - XSS</a></li>
     </ul>
 </body>
 </html>
