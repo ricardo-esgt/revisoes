@@ -12,6 +12,7 @@
         <li><a href="02_sql_injection/">02 - SQL Injection</a></li>
         <li><a href="03_clear_text_credentials/">03 - Clear Text Credentials</a></li>
         <li><a href="04_dynamic_languages/">04 - Dynamic Languages</a></li>
+        <li><a href="05_iframe/">05 - IFrame</a></li>
     </ul>
 </body>
 </html>
