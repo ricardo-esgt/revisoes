@@ -33,7 +33,10 @@
             $conn = new PDO("pgsql:host=$host;port=5432;dbname=$schema;user=$user;password=$pass");
         
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+            
+            //Query exposta a SQL Injection
+            //estamos a concatenar diretamente os inputs a query
+            //e possivel injetar comandos SQL e manipular a BD com CRUD
             $data = $conn->query("SELECT name FROM users WHERE username = '$username'");
 
             foreach ($data->fetchAll() as $user) {
@@ -77,6 +80,9 @@
         
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+            //Executamos uma parameterized query que trata os comandos SQL dos inputs
+            //como string e nao SQL executavel
+            //previne SQL Injection
             $parameterizedQuery = $conn->prepare("SELECT name FROM users WHERE username=:username");
 
             $parameterizedQuery->bindParam(":username", $username, PDO::PARAM_STR);
