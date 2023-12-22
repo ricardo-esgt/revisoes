@@ -21,7 +21,10 @@
         if(!empty($_POST["vulnerable"])) {
 
             $ip = $_POST["ip"];
-
+            //e possivel executar comandos do OS
+            //se passarmos o comando "ls"
+            //vai retornar a lista de ficheiros
+            //conseguimos fazer reverse shell e ter acesso direto ao OS
             echo "<pre>" . shell_exec("ping -c 4 $ip") . "</pre>";
             
         }
@@ -42,6 +45,8 @@
 
             $ip = $_POST["ip"];
 
+            //como queremos executar um ping
+            //validamos se o input passado e um IP e nao outra coisa que possa executar no OS
             if(filter_var($ip, FILTER_VALIDATE_IP)) {
                 echo "<pre>" . shell_exec("ping -c 4 $ip") . "</pre>";
 

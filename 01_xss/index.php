@@ -21,7 +21,10 @@
         if(!empty($_POST["vulnerable"])) {
 
             $name = $_POST["name"];
-
+            //renderiza diretamente o input do utilizador
+            //e possivel injetar JS e PHP
+            //com isto podemos fazer website defacing, roubo de cookies vulneraveis
+            //key logging
             echo "<pre>$name</pre>";
             
         }
@@ -40,6 +43,8 @@
 
         if(!empty($_POST["secure"])) {
 
+            //removemos todas as tags PHP e JS
+            //nao vai executar scripts e assim removemos a capacidade de XSS
             $name = strip_tags($_POST["name"]);
 
             echo "<pre>$name</pre>";
