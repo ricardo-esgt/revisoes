@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>02 - SQL Injection</title>
+    <title>03 - Clear Text Credentials</title>
 </head>
 <body>
     <a href="../">Voltar</a>
@@ -40,6 +40,9 @@
         
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+            //Query exposta a SQL Injection e a password do utilizador esta em clear text
+            //caso alguem faça dump da BD
+            //as passwords dos utilizadores ficam expostas
             $data = $conn->query("SELECT name FROM users WHERE username = '$username' and password_vulnerable = '$password'");
 
             if(empty($data->fetchAll()[0])) {
@@ -80,12 +83,16 @@
 
             $username = $_POST["username"];
 
-            $password = hash("SHA512", $_POST["password"]);
-
             $conn = new PDO("pgsql:host=$host;port=5432;dbname=$schema;user=$user;password=$pass");
         
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+            //Password de utilizador esta cifrada com SHA512 na BD
+            //temos de cifrar a password do input e comparar os hash
+            //se alguem fizer dump a BD, apenas conseguem ver passwords mastigadas por SHA512
+            $password = hash("SHA512", $_POST["password"]);
+
+            //Usamos parameterized query para remover SQL Injection
             $parameterizedQuery = $conn->prepare("SELECT name FROM users WHERE username=:username AND password_secure = :password");
 
             $parameterizedQuery->bindParam(":username", $username, PDO::PARAM_STR);
