@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>02 - SQL Injection</title>
+    <title>04 - Dynamic Languages</title>
 </head>
 <body>
     <a href="../">Voltar</a>
@@ -19,9 +19,13 @@
     <?php
 
         if(!empty($_POST["vulnerable"])) {
-
+            //funcao retorna boolean ou string
             $authenticationValidation = vulnerableAuthentication($_POST["session_id"]);
 
+            //linguagens dinamicas funcionam com tipos falsy: false, 0, "0", "", []
+            //como a funcao retorna true para sucesso e string para mensagem de erro,
+            //esta validacao avalia para true, uma string vazia converte para true
+            //assim e possivel fazer bypass a esta validacao
             echo $authenticationValidation == true ? "Authenticated" : $authenticationValidation; 
         }
 
@@ -47,9 +51,12 @@
     <?php
 
         if(!empty($_POST["secure"])) {
-
+            //esta funcao retorna sempre o mesmo tipo
+            //array associativo e cada chave retorna um valor do mesmo tipo
             $authenticationValidation = secureAuthentication($_POST["session_id"]);
 
+            //avaliamos a chave valid que e boolean e no caso de erro, retornamos a mensagem de erro
+            //nao conseguimos fazer bypass
             echo $authenticationValidation["valid"] == true ? "Authenticated" : $authenticationValidation["message"]; 
         }
 
