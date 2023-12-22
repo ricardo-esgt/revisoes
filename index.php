@@ -14,6 +14,7 @@
         <li><a href="04_dynamic_languages/">04 - Dynamic Languages</a></li>
         <li><a href="05_iframe/">05 - IFrame</a></li>
         <li><a href="06_path_traversal/">06 - Path Traversal</a></li>
+        <li><a href="07_weak_cookie_configuration/">07 - Weak Cookies Configuration</a></li>
     </ul>
 </body>
 </html>
